@@ -1,24 +1,21 @@
-package com.spungkyb.mynotesapp;
+package com.spungkyb.dicodingnotesapp.com.spungkyb.dicodingnotesapp;
 
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.spungkyb.mynotesapp.db.DatabaseContract;
+import com.spungkyb.dicodingnotesapp.DatabaseContract;
 
-import static android.provider.UserDictionary.Words._ID;
-import static com.spungkyb.mynotesapp.db.DatabaseContract.getColumnInt;
-import static com.spungkyb.mynotesapp.db.DatabaseContract.getColumnString;
+import static com.spungkyb.dicodingnotesapp.DatabaseContract.getColumnInt;
+import static com.spungkyb.dicodingnotesapp.DatabaseContract.getColumnString;
 
 /**
- * Created by user on 06/08/2018.
+ * Created by user on 15/08/2018.
  */
 
-public class Note implements Parcelable {
+public class NoteItem implements Parcelable {
     private int id;
-    private String title;
-    private String description;
-    private String date;
+    private String title, description, date;
 
     public int getId() {
         return id;
@@ -35,7 +32,6 @@ public class Note implements Parcelable {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getDescription() {
         return description;
@@ -66,34 +62,33 @@ public class Note implements Parcelable {
         dest.writeString(this.date);
     }
 
-    public Note() {
+    public NoteItem() {
     }
 
-    protected Note(Parcel in) {
+    public NoteItem(Cursor cursor){
+        this.id = getColumnInt(cursor, DatabaseContract.NoteColumns._ID);
+        this.title = getColumnString(cursor, DatabaseContract.NoteColumns.TITLE);
+        this.description = getColumnString(cursor, DatabaseContract.NoteColumns.DESCRIPTION);
+        this.date = getColumnString(cursor, DatabaseContract.NoteColumns.DATE);
+    }
+
+    protected NoteItem(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.date = in.readString();
     }
 
-    public static final Parcelable.Creator<Note>CREATOR = new Parcelable.Creator<Note>() {
-
+    public static final Parcelable.Creator<NoteItem> CREATOR = new Parcelable.Creator<NoteItem>() {
         @Override
-        public Note createFromParcel(Parcel source) {
-            return new Note(source);
+        public NoteItem createFromParcel(Parcel source) {
+            return new NoteItem(source);
         }
 
+
         @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
+        public NoteItem[] newArray(int size) {
+            return new NoteItem[size];
         }
     };
-
-    //tambahan content provider
-    public Note(Cursor cursor){
-        this.id = getColumnInt(cursor, _ID);
-        this.title = getColumnString(cursor, DatabaseContract.NoteColumns.TITLE);
-        this.description = getColumnString(cursor, DatabaseContract.NoteColumns.DESCRIPTION);
-        this.date = getColumnString(cursor, DatabaseContract.NoteColumns.DATE);
-    }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spungkyb.mynotesapp">
+    package="com.spungkyb.dicodingnotesapp">
 
-    <!--tambahan content provider-->
-    <permission android:name="com.dicoding.mynotesapp.READ_DATABASE" android:protectionLevel="normal"/>
-    <permission android:name="com.dicoding.mynotesapp.WRITE_DATABASE" android:protectionLevel="normal"/>
+    <uses-permission android:name="com.dicoding.mynotesapp.READ_DATABASE" />
+    <uses-permission android:name="com.dicoding.mynotesapp.WRITE_DATABASE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FormAddUpdateActivity"/>
-        <provider
-            android:authorities="com.dicoding.mynotesapp"
-            android:name=".provider.NoteProvider"
-            android:exported="true"
-            android:readPermission="com.dicoding.mynotesapp.READ_DATABASE"
-            android:writePermission="com.dicoding.mynotesapp.WRITE_DATABASE" />
+        <activity android:name=".com.spungkyb.dicodingnotesapp.FormActivity"></activity>
     </application>
 
 </manifest>
